@@ -292,7 +292,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textColor="@color/white"
-                android:id="@+id/buttonzeros"
+                android:id="@+id/buttonzero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
@@ -303,7 +303,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textColor="@color/white"
-                android:id="@+id/buttonzero"
+                android:id="@+id/buttonzeros"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
@@ -323,14 +323,14 @@
 
             <Button
                 android:layout_weight="1"
-                android:textSize="30sp"
+                android:textSize="18sp"
                 android:textColor="@color/white"
-                android:id="@+id/buttonpi"
+                android:id="@+id/buttonln"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/accent"
                 android:layout_margin="2dp"
-                android:text="@string/pi" />
+                android:text="@string/ln" />
 
             <Button
                 android:layout_weight="1"

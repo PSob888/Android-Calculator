@@ -136,7 +136,7 @@ class SimpleActivity : AppCompatActivity() {
 
     fun evaluateExpression(string: String) {
         if(isZnak(myString.last()) && isZnak(string.last())) {
-            if(string == "-" && (myString.last() == '/' || myString.last() == '*')){
+            if(string == "-" && (myString.last() == '/' || myString.last() == '*' || myString.last() == '+')){
                 myString += string
                 val textview = findViewById<TextView>(R.id.textView3)
                 textview.text = myString
@@ -144,7 +144,7 @@ class SimpleActivity : AppCompatActivity() {
             return
         }
 
-        if(myString.length == 1 && (string == "0" || string == "00")){
+        if(myString == "0" && (string == "0" || string == "00")){
             return
         }
 

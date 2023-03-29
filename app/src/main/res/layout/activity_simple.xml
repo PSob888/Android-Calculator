@@ -250,7 +250,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/buttonzeros"
+                android:id="@+id/buttonzero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
@@ -261,7 +261,7 @@
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/buttonzero"
+                android:id="@+id/buttonzeros"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
