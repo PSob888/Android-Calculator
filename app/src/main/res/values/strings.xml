@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="app_namebold"><b>Calculator</b></string>
+    <string name="aboutmebutton"><b>About me</b></string>
+    <string name="normalbutton"><b>Simple</b></string>
+    <string name="advancedbutton"><b>Advanced</b></string>
+    <string name="exitbutton"><b>Exit</b></string>
+    <string name="author">Piotr Sobieszek</string>
+</resources>
