@@ -11,6 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val buttonSimple = findViewById<Button>(R.id.buttonsimple)
+        buttonSimple.setOnClickListener {
+            val intent = Intent(this, SimpleActivity::class.java)
+            startActivity(intent)
+        }
+
         val buttonAbout = findViewById<Button>(R.id.buttonabout)
         buttonAbout.setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
