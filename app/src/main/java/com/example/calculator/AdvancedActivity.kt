@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import org.mariuszgromada.math.mxparser.Expression
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class AdvancedActivity : AppCompatActivity() {
     private var myString = "0"
@@ -33,6 +35,11 @@ class AdvancedActivity : AppCompatActivity() {
         val buttontg = findViewById<Button>(R.id.buttontg)
         val buttonsqrt = findViewById<Button>(R.id.buttonsqrt)
         val buttonln = findViewById<Button>(R.id.buttonln)
+        val buttonpi = findViewById<Button>(R.id.buttonpi)
+        val buttonlnawias = findViewById<Button>(R.id.buttonpnawias)
+        val buttonpnawias = findViewById<Button>(R.id.buttonlnawias)
+        val buttonpercent = findViewById<Button>(R.id.buttonpercent)
+        val buttonxdoy = findViewById<Button>(R.id.buttonxy)
         val buttonclear = findViewById<Button>(R.id.buttonclear)
         val buttonbackspace = findViewById<Button>(R.id.buttonbackspace)
         val buttonequals = findViewById<Button>(R.id.buttonequals)
@@ -44,113 +51,163 @@ class AdvancedActivity : AppCompatActivity() {
         }
 
         buttonzero.setOnClickListener {
-            evaluateExpression("0")
+            addToString("0")
         }
 
         buttonzeros.setOnClickListener {
-            evaluateExpression("00")
+            addToString("00")
         }
 
         buttondot.setOnClickListener {
-            evaluateExpression(".")
+            addToString(".")
         }
 
         buttonone.setOnClickListener {
-            evaluateExpression("1")
+            addToString("1")
         }
 
         buttontwo.setOnClickListener {
-            evaluateExpression("2")
+            addToString("2")
         }
 
         buttonthree.setOnClickListener {
-            evaluateExpression("3")
+            addToString("3")
         }
 
         buttonfour.setOnClickListener {
-            evaluateExpression("4")
+            addToString("4")
         }
 
         buttonfive.setOnClickListener {
-            evaluateExpression("5")
+            addToString("5")
         }
 
         buttonsix.setOnClickListener {
-            evaluateExpression("6")
+            addToString("6")
         }
 
         buttonseven.setOnClickListener {
-            evaluateExpression("7")
+            addToString("7")
         }
 
         buttoneight.setOnClickListener {
-            evaluateExpression("8")
+            addToString("8")
         }
 
         buttonnine.setOnClickListener {
-            evaluateExpression("9")
+            addToString("9")
         }
 
         buttonplus.setOnClickListener {
-            evaluateExpression("+")
+            addToString("+")
         }
 
         buttonminus.setOnClickListener {
-            evaluateExpression("-")
+            addToString("-")
         }
 
         buttonmultiply.setOnClickListener {
-            evaluateExpression("*")
+            addToString("*")
         }
 
         buttondivide.setOnClickListener {
-            evaluateExpression("/")
+            addToString("/")
         }
 
         buttonpower.setOnClickListener {
-            evaluateExpression("^2")
+            addToString("^2")
             val e = Expression(myString)
             myString = e.calculate().toString()
             textview.text = myString
         }
 
         buttonsin.setOnClickListener {
-            var temp = "sin("
-            temp += myString
-            temp += ")"
-            myString = temp
+            if(isZnak(myString.last())){
+                addToString("sin(")
+            }
+            else{
+                var temp = "sin("
+                temp += myString
+                temp += ")"
+                myString = temp
+            }
             textview.text = myString
         }
 
         buttoncos.setOnClickListener {
-            var temp = "cos("
-            temp += myString
-            temp += ")"
-            myString = temp
+            if(isZnak(myString.last())){
+                addToString("cos(")
+            }
+            else{
+                var temp = "cos("
+                temp += myString
+                temp += ")"
+                myString = temp
+            }
             textview.text = myString
         }
 
         buttontg.setOnClickListener {
-            var temp = "tg("
-            temp += myString
-            temp += ")"
-            myString = temp
+            if(isZnak(myString.last())){
+                addToString("tg(")
+            }
+            else{
+                var temp = "tg("
+                temp += myString
+                temp += ")"
+                myString = temp
+            }
             textview.text = myString
         }
 
         buttonsqrt.setOnClickListener {
-            var temp = "sqrt("
-            temp += myString
-            temp += ")"
-            myString = temp
+            if(isZnak(myString.last())){
+                addToString("sqrt(")
+            }
+            else{
+                var temp = "sqrt("
+                temp += myString
+                temp += ")"
+                myString = temp
+            }
             textview.text = myString
         }
 
         buttonln.setOnClickListener {
-            var temp = "ln("
-            temp += myString
-            temp += ")"
-            myString = temp
+            if(isZnak(myString.last())){
+                addToString("ln(")
+            }
+            else{
+                var temp = "ln("
+                temp += myString
+                temp += ")"
+                myString = temp
+            }
+            textview.text = myString
+        }
+
+        buttonpi.setOnClickListener {
+            addToString("pi")
+            textview.text = myString
+        }
+
+        buttonlnawias.setOnClickListener {
+            addToString(")")
+            textview.text = myString
+        }
+
+        buttonpnawias.setOnClickListener {
+            addToString("(")
+            textview.text = myString
+        }
+
+        buttonxdoy.setOnClickListener {
+            addToString("^")
+            textview.text = myString
+        }
+
+        buttonpercent.setOnClickListener {
+            addToString("%")
             textview.text = myString
         }
 
@@ -172,13 +229,22 @@ class AdvancedActivity : AppCompatActivity() {
         buttonequals.setOnClickListener {
             val e = Expression(myString)
             myString = e.calculate().toString()
+            if(myString == "NaN"){
+                myString = "0"
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Błąd")
+                builder.setMessage("Operacja nie możliwa do wykonania")
+
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->}
+                builder.show()
+            }
             textview.text = myString
         }
 
     }
 
-    fun evaluateExpression(string: String) {
-        if(isZnak(myString.last()) && isZnak(string.last())) {
+    fun addToString(string: String) {
+        if(isZnak(myString.last()) && isZnak(string.first())) {
             if(string == "-" && (myString.last() == '/' || myString.last() == '*' || myString.last() == '+')){
                 myString += string
                 val textview = findViewById<TextView>(R.id.textView3)
@@ -189,12 +255,6 @@ class AdvancedActivity : AppCompatActivity() {
 
         if(myString == "0" &&  (string == "0" || string == "00")){
             return
-        }
-
-        if(myString.length == 1 && isZnak(string[0])){
-            if(string != "-"){
-                return
-            }
         }
 
         if(myString.length == 1 && myString[0] == '0') {
@@ -219,6 +279,8 @@ class AdvancedActivity : AppCompatActivity() {
         if(char == '.')
             return true;
         if(char == '*')
+            return true;
+        if(char == '^')
             return true;
         return false
     }

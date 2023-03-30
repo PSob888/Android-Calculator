@@ -30,6 +30,11 @@
     <string name="cos">cos</string>
     <string name="ln">ln</string>
     <string name="sqrt">√</string>
+    <string name="pi">pi</string>
+    <string name="nawiasl">(</string>
+    <string name="nawiasp">)</string>
+    <string name="xdoy">x^y</string>
+    <string name="percent">%</string>
     <string name="tg">tg</string>
     <string name="test">23094823084320985320131232133123</string>
 </resources>

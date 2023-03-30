@@ -1,9 +1,9 @@
 package com.example.calculator
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.mariuszgromada.math.mxparser.Expression
 
@@ -41,71 +41,71 @@ class SimpleActivity : AppCompatActivity() {
         }
 
         buttonzero.setOnClickListener {
-            evaluateExpression("0")
+            addToString("0")
         }
 
         buttonzeros.setOnClickListener {
-            evaluateExpression("00")
+            addToString("00")
         }
 
         buttondot.setOnClickListener {
-            evaluateExpression(".")
+            addToString(".")
         }
 
         buttonone.setOnClickListener {
-            evaluateExpression("1")
+            addToString("1")
         }
 
         buttontwo.setOnClickListener {
-            evaluateExpression("2")
+            addToString("2")
         }
 
         buttonthree.setOnClickListener {
-            evaluateExpression("3")
+            addToString("3")
         }
 
         buttonfour.setOnClickListener {
-            evaluateExpression("4")
+            addToString("4")
         }
 
         buttonfive.setOnClickListener {
-            evaluateExpression("5")
+            addToString("5")
         }
 
         buttonsix.setOnClickListener {
-            evaluateExpression("6")
+            addToString("6")
         }
 
         buttonseven.setOnClickListener {
-            evaluateExpression("7")
+            addToString("7")
         }
 
         buttoneight.setOnClickListener {
-            evaluateExpression("8")
+            addToString("8")
         }
 
         buttonnine.setOnClickListener {
-            evaluateExpression("9")
+            addToString("9")
         }
 
         buttonplus.setOnClickListener {
-            evaluateExpression("+")
+            addToString("+")
         }
 
         buttonminus.setOnClickListener {
-            evaluateExpression("-")
+            addToString("-")
         }
 
         buttonmultiply.setOnClickListener {
-            evaluateExpression("*")
+            addToString("*")
         }
 
         buttondivide.setOnClickListener {
-            evaluateExpression("/")
+            addToString("/")
         }
 
         buttonpower.setOnClickListener {
-            evaluateExpression("^2")
+            addToString("^2")
             val e = Expression(myString)
             myString = e.calculate().toString()
             textview.text = myString
@@ -129,12 +129,21 @@ class SimpleActivity : AppCompatActivity() {
         buttonequals.setOnClickListener {
             val e = Expression(myString)
             myString = e.calculate().toString()
+            if(myString == "NaN"){
+                myString = "0"
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Błąd")
+                builder.setMessage("Operacja nie możliwa do wykonania")
+
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->}
+                builder.show()
+            }
             textview.text = myString
         }
 
     }
 
-    fun evaluateExpression(string: String) {
+    fun addToString(string: String) {
         if(isZnak(myString.last()) && isZnak(string.last())) {
             if(string == "-" && (myString.last() == '/' || myString.last() == '*' || myString.last() == '+')){
                 myString += string
@@ -146,12 +155,6 @@ class SimpleActivity : AppCompatActivity() {
 
         if(myString == "0" && (string == "0" || string == "00")){
             return
-        }
-
-        if(myString.length == 1 && isZnak(string[0])){
-            if(string != "-"){
-                return
-            }
         }
 
         if(myString.length == 1 && myString[0] == '0') {
